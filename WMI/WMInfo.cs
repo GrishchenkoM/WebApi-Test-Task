@@ -9,12 +9,12 @@ namespace WMI
 {
     public class WmInfo
     {
-        protected EntitiesModel GetInfo()
+        public EntitiesModel GetInfo()
         {
             var model = new EntitiesModel();
 
             model.Manufacturer = new Manufacturer();
-            var manufacturer = GetInfo("Win32_ComputerSystem", "Manufacturer");
+            var manufacturer = GetInfo("Win32_Processor", "Manufacturer");
             if (manufacturer.Any())
             {
                 model.Manufacturer.Name = manufacturer[0];
@@ -50,7 +50,7 @@ namespace WMI
                     result.Add(obj[classItemAdd].ToString().Trim());
                 }
             }
-            catch (Exception ex) { }
+            catch { }
 
             return result;
         }
