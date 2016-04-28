@@ -21,13 +21,13 @@ namespace WMI.Tests
         [Test]
         public void GetInfo_ComputerName_IsNotEmpty_Test()
         {
-            Assert.IsNotEmpty(_model.ComputerName.Name);
+            Assert.IsNotEmpty(_model.Computer.Name);
         }
 
         [Test]
         public void GetInfo_UserNames_IsNotEmpty_Test()
         {
-            Assert.IsNotEmpty(_model.UserNames);
+            Assert.IsNotEmpty(_model.Users);
         }
 
         EntitiesModel _model;

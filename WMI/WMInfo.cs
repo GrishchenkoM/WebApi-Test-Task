@@ -20,19 +20,19 @@ namespace WMI
                 model.Manufacturer.Name = manufacturer[0];
             }
 
-            model.ComputerName = new ComputerName();
+            model.Computer = new Computer();
             var computerName = GetInfo("Win32_ComputerSystem", "Name");
             if (computerName.Any())
             {
-                model.ComputerName.Name = computerName[0];
+                model.Computer.Name = computerName[0];
             }
 
-            model.UserNames = new List<UserName>();
+            model.Users = new List<User>();
             var userNames = GetInfo("Win32_UserAccount", "Name");
             if (userNames.Any())
                 foreach (var name in userNames)
                 {
-                    model.UserNames.Add(new UserName() {Name = name});
+                    model.Users.Add(new User() {Name = name});
                 }
 
             return model;
