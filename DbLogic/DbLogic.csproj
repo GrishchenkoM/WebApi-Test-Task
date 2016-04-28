@@ -51,13 +51,13 @@
   <ItemGroup>
     <Compile Include="DataManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\Implementations\ComputerNameRepository.cs" />
+    <Compile Include="Repositories\Implementations\ComputerRepository.cs" />
     <Compile Include="Repositories\Implementations\ManufacturerRepository.cs" />
-    <Compile Include="Repositories\Implementations\UserNameRepository.cs" />
-    <Compile Include="Repositories\Interfaces\IComputerNameRepository.cs" />
+    <Compile Include="Repositories\Implementations\UserRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IComputerRepository.cs" />
     <Compile Include="Repositories\Interfaces\IManufacturerRepository.cs" />
     <Compile Include="Repositories\Interfaces\IRepository.cs" />
-    <Compile Include="Repositories\Interfaces\IUserNameRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IUserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

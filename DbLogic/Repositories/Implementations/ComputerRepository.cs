@@ -8,21 +8,21 @@ using Domain.Entities;
 
 namespace DbLogic.Repositories.Implementations
 {
-    public class ComputerNameRepository : IComputerNameRepository
+    public class ComputerRepository : IComputerRepository
     {
-        public ComputerNameRepository(DbDataContext context)
+        public ComputerRepository(DbDataContext context)
         {
             _context = context;
         }
 
-        public IEnumerable<ComputerName> GetComputerNames()
+        public IEnumerable<Computer> GetComputers()
         {
-            return _context.ComputerNames;
+            return _context.Computers;
         }
 
-        public ComputerName GetComputerName(int id)
+        public Computer GetComputer(int id)
         {
-            return _context.ComputerNames.FirstOrDefault(x => x.Id == id);
+            return _context.Computers.FirstOrDefault(x => x.Id == id);
         }
 
         public virtual void Dispose(bool disposing)
@@ -42,21 +42,21 @@ namespace DbLogic.Repositories.Implementations
             GC.SuppressFinalize(this);
         }
 
-        public void Create(ComputerName item)
+        public void Create(Computer item)
         {
-            _context.ComputerNames.Add(item);
+            _context.Computers.Add(item);
         }
 
-        public void Update(ComputerName item)
+        public void Update(Computer item)
         {
             _context.Entry(item).State = EntityState.Modified;
         }
 
-        public void Delete(ComputerName item)
+        public void Delete(Computer item)
         {
-            var computerName = _context.ComputerNames.Find(item);
+            var computerName = _context.Computers.Find(item);
             if (computerName != null)
-                _context.ComputerNames.Remove(item);
+                _context.Computers.Remove(item);
         }
 
         public void Save()

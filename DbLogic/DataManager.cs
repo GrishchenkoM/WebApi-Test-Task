@@ -5,21 +5,21 @@ namespace DbLogic
     public class DataManager
     {
         public DataManager(
-            IComputerNameRepository computerNameRepository, 
+            IComputerRepository computerRepository, 
             IManufacturerRepository manufacturerRepository,
-            IUserNameRepository userNameRepository)
+            IUserRepository userRepository)
         {
-            _computerNameRepository = computerNameRepository;
+            _computerRepository = computerRepository;
             _manufacturerRepository = manufacturerRepository;
-            _userNameRepository = userNameRepository;
+            _userRepository = userRepository;
         }
 
-        public IComputerNameRepository ComputerNameRepositories { get { return _computerNameRepository; } }
+        public IComputerRepository ComputerRepositories { get { return _computerRepository; } }
         public IManufacturerRepository ManufacturerRepositories { get { return _manufacturerRepository; } }
-        public IUserNameRepository UserNameRepositories { get { return _userNameRepository; } }
+        public IUserRepository UserRepositories { get { return _userRepository; } }
 
-        private readonly IComputerNameRepository _computerNameRepository;
+        private readonly IComputerRepository _computerRepository;
         private readonly IManufacturerRepository _manufacturerRepository;
-        private readonly IUserNameRepository _userNameRepository;
+        private readonly IUserRepository _userRepository;
     }
 }

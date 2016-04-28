@@ -8,20 +8,20 @@ using Domain.Entities;
 
 namespace DbLogic.Repositories.Implementations
 {
-    public class UserNameRepository : IUserNameRepository
+    public class UserRepository : IUserRepository
     {
-        public UserNameRepository(DbDataContext context)
+        public UserRepository(DbDataContext context)
         {
             _context = context;
         }
-        public IEnumerable<UserName> GetUserNames()
+        public IEnumerable<User> GetUsers()
         {
-            return _context.UserNames;
+            return _context.Users;
         }
 
-        public UserName GetUserName(int id)
+        public User GetUser(int id)
         {
-            return _context.UserNames.FirstOrDefault(x => x.Id == id);
+            return _context.Users.FirstOrDefault(x => x.Id == id);
         }
 
         public virtual void Dispose(bool disposing)
@@ -41,21 +41,21 @@ namespace DbLogic.Repositories.Implementations
             GC.SuppressFinalize(this);
         }
 
-        public void Create(UserName item)
+        public void Create(User item)
         {
-            _context.UserNames.Add(item);
+            _context.Users.Add(item);
         }
 
-        public void Update(UserName item)
+        public void Update(User item)
         {
             _context.Entry(item).State = EntityState.Modified;
         }
 
-        public void Delete(UserName item)
+        public void Delete(User item)
         {
-            var userName = _context.UserNames.Find(item);
+            var userName = _context.Users.Find(item);
             if (userName != null)
-                _context.UserNames.Remove(item);
+                _context.Users.Remove(item);
         }
 
         public void Save()
