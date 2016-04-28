@@ -8,8 +8,7 @@ using Domain.Entities;
 
 namespace DbLogic.Repositories.Implementations
 {
-    public class ComputerNameRepository 
-        : IComputerNameRepository, IRepository<ComputerName>
+    public class ComputerNameRepository : IComputerNameRepository
     {
         public ComputerNameRepository(DbDataContext context)
         {
@@ -60,7 +59,7 @@ namespace DbLogic.Repositories.Implementations
                 _context.ComputerNames.Remove(item);
         }
 
-        public void Save(ComputerName item)
+        public void Save()
         {
             _context.SaveChanges();
         }

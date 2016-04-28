@@ -8,8 +8,7 @@ using Domain.Entities;
 
 namespace DbLogic.Repositories.Implementations
 {
-    public class UserNameRepository 
-        : IUserNameRepository, IRepository<UserName>
+    public class UserNameRepository : IUserNameRepository
     {
         public UserNameRepository(DbDataContext context)
         {
@@ -59,7 +58,7 @@ namespace DbLogic.Repositories.Implementations
                 _context.UserNames.Remove(item);
         }
 
-        public void Save(UserName item)
+        public void Save()
         {
             _context.SaveChanges();
         }

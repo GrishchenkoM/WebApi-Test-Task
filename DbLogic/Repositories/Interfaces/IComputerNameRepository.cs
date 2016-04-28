@@ -7,7 +7,7 @@ using Domain.Entities;
 
 namespace DbLogic.Repositories.Interfaces
 {
-    public interface IComputerNameRepository
+    public interface IComputerNameRepository :  IRepository<ComputerName>
     {
         IEnumerable<ComputerName> GetComputerNames();
         ComputerName GetComputerName(int id);

@@ -8,8 +8,7 @@ using Domain.Entities;
 
 namespace DbLogic.Repositories.Implementations
 {
-    public class ManufacturerRepository 
-        : IManufacturerRepository, IRepository<Manufacturer>
+    public class ManufacturerRepository : IManufacturerRepository
     {
         public ManufacturerRepository(DbDataContext context)
         {
@@ -61,7 +60,7 @@ namespace DbLogic.Repositories.Implementations
                 _context.Manufacturers.Remove(item);
         }
 
-        public void Save(Manufacturer item)
+        public void Save()
         {
             _context.SaveChanges();
         }

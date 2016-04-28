@@ -7,7 +7,7 @@ using Domain.Entities;
 
 namespace DbLogic.Repositories.Interfaces
 {
-    public interface IUserNameRepository
+    public interface IUserNameRepository : IRepository<UserName>
     {
         IEnumerable<UserName> GetUserNames();
         UserName GetUserName(int id);

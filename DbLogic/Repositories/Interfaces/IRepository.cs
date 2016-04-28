@@ -7,6 +7,6 @@ namespace DbLogic.Repositories.Interfaces
         void Create(T item);
         void Update(T item);
         void Delete(T item);
-        void Save(T item);
+        void Save();
     }
 }
