@@ -7,7 +7,7 @@ using Domain.Entities;
 
 namespace WMI
 {
-    public class WmInfo
+    public class WmInfo : IGetInfo
     {
         public EntitiesModel GetInfo()
         {
