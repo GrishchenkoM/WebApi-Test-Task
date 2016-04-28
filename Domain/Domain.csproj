@@ -49,9 +49,9 @@
   <ItemGroup>
     <Compile Include="DbDataContext.cs" />
     <Compile Include="EntitiesModel.cs" />
-    <Compile Include="Entities\ComputerName.cs" />
+    <Compile Include="Entities\Computer.cs" />
     <Compile Include="Entities\Manufacturer.cs" />
-    <Compile Include="Entities\UserName.cs" />
+    <Compile Include="Entities\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
