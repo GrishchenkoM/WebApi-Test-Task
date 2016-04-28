@@ -1,27 +1,24 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using DbLogic;
 using Domain;
+using Domain.Entities;
 using WMI;
 
 namespace Management
 {
     public class Manager
     {
-        public Manager(DataManager dataManager)
-        {
-            _dataManager = dataManager;
-        }
         public Manager(DataManager dataManager, IGetInfo info)
         {
             _dataManager = dataManager;
             _info = info;
 
+            Manage();
+
+            var thread = new Thread(new Timer(this, _updateTime).SwitchOn);
+            thread.Start();
         }
 
         public void Manage()
@@ -35,56 +32,107 @@ namespace Management
 
         private void ManageUserName(EntitiesModel model)
         {
-            var manufacturer = _dataManager.ManufacturerRepositories.GetManufacturers().ToList();
-
-            if (!manufacturer.Any())
-                _dataManager.ManufacturerRepositories.Create(model.Manufacturer);
-            else
+            try
             {
-                if (!manufacturer[0].Name.Equals(model.Manufacturer.Name))
+                var userNames = _dataManager.UserRepositories.GetUsers().ToList();
+
+                if (!userNames.Any())
+                    foreach (var name in model.Users)
+                    {
+                        _dataManager.UserRepositories.Create(name);
+                    }
+                else
                 {
-                    model.Manufacturer.Id = manufacturer[0].Id;
-                    _dataManager.ManufacturerRepositories.Update(model.Manufacturer);
+                    var userNamesOld = new List<User>(userNames);
+                    var userNamesNew = new List<User>(model.Users);
+
+                    if (userNamesNew.Count >= userNamesOld.Count)
+                    {
+                        foreach (var oldName in userNamesOld)
+                        {
+                            var item = userNamesNew.FirstOrDefault(x => x.Name.Equals(oldName.Name));
+
+                            if (item != null)
+                                userNamesNew.Remove(item);
+                            else
+                                userNames.Remove(item);
+
+                            userNamesOld.Remove(item);
+                        }
+                        foreach (var userName in userNamesNew)
+                        {
+                            _dataManager.UserRepositories.Create(userName);
+                        }
+                    }
+                    else
+                    {
+                        foreach (var userName in userNamesNew)
+                        {
+                            var item = userNamesOld.FirstOrDefault(x => x.Name.Equals(userName.Name));
+
+                            if (item != null)
+                            {
+                                userNamesNew.Remove(item);
+                                userNamesOld.Remove(item);
+                            }
+                            else
+                                _dataManager.UserRepositories.Create(userName);
+                        }
+                        foreach (var userName in userNamesOld)
+                        {
+                            userNames.Remove(userName);
+                        }
+                    }
                 }
+                _dataManager.UserRepositories.Save();
             }
-            _dataManager.ManufacturerRepositories.Save();
+            catch { }
         }
 
         private void ManageManufacturer(EntitiesModel model)
         {
-            var manufacturer = _dataManager.ManufacturerRepositories.GetManufacturers().ToList();
-
-            if (!manufacturer.Any())
-                _dataManager.ManufacturerRepositories.Create(model.Manufacturer);
-            else
+            try
             {
-                if (!manufacturer[0].Name.Equals(model.Manufacturer.Name))
+                var manufacturer = _dataManager.ManufacturerRepositories.GetManufacturers().ToList();
+
+                if (!manufacturer.Any())
+                    _dataManager.ManufacturerRepositories.Create(model.Manufacturer);
+                else
                 {
-                    model.Manufacturer.Id = manufacturer[0].Id;
-                    _dataManager.ManufacturerRepositories.Update(model.Manufacturer);
+                    if (!manufacturer[0].Name.Equals(model.Manufacturer.Name))
+                    {
+                        model.Manufacturer.Id = manufacturer[0].Id;
+                        _dataManager.ManufacturerRepositories.Update(model.Manufacturer);
+                    }
                 }
+                _dataManager.ManufacturerRepositories.Save();
             }
-            _dataManager.ManufacturerRepositories.Save();
+            catch { }
         }
 
         private void ManageComputerName(EntitiesModel model)
         {
-            var computerNames = _dataManager.ComputerNameRepositories.GetComputerNames().ToList();
-
-            if (!computerNames.Any())
-                _dataManager.ComputerNameRepositories.Create(model.ComputerName);
-            else
+            try
             {
-                if (!computerNames[0].Name.Equals(model.ComputerName.Name))
+                var computerNames = _dataManager.ComputerRepositories.GetComputers().ToList();
+
+                if (!computerNames.Any())
+                    _dataManager.ComputerRepositories.Create(model.Computer);
+                else
                 {
-                    model.ComputerName.Id = computerNames[0].Id;
-                    _dataManager.ComputerNameRepositories.Update(model.ComputerName);
+                    if (!computerNames[0].Name.Equals(model.Computer.Name))
+                    {
+                        model.Computer.Id = computerNames[0].Id;
+                        _dataManager.ComputerRepositories.Update(model.Computer);
+                    }
                 }
+                _dataManager.ComputerRepositories.Save();
             }
-            _dataManager.ComputerNameRepositories.Save();
+            catch { }
         }
 
         private readonly DataManager _dataManager;
         private readonly IGetInfo _info;
+        private readonly int _updateTime = 1800; // 30 minutes
     }
 }
