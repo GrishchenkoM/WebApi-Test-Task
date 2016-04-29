@@ -1,17 +1,37 @@
-﻿@{
-    Layout = null;
-}
+﻿
+@section Context{
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
     <title>Error</title>
-</head>
-<body>
     <hgroup>
         <h1>Error.</h1>
         <h2>An error occurred while processing your request.</h2>
     </hgroup>
-</body>
-</html>
+
+    <div class="image_wrapper" style="width: 600;">
+        @CreateTable(ViewBag.Exception)
+    </div>
+    <div class="cleaner"></div>
+
+}
+
+@helper CreateTable(Exception ex) {
+    try
+    {
+        <table class="my-simple-table" id="numberList">
+            <tr>@WriteInCell(ex.Message, "Message")</tr>
+            <tr>@WriteInCell(ex.StackTrace, "StackTrace")</tr>
+            <tr>@WriteInCell(ex.Data.ToString(), "Data")</tr>
+
+        </table>
+    }
+    catch
+    {
+        // ignored
+    }
+}
+
+@helper WriteInCell(string data, string name)
+{
+    <td>@name</td>
+    <td>@data</td>
+}
