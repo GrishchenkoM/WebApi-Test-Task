@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Management;
 using Domain;
@@ -7,6 +6,9 @@ using Domain.Entities;
 
 namespace WMI
 {
+    /// <summary>
+    /// WMI data reading class
+    /// </summary>
     public class WmInfo : IGetInfo
     {
         public EntitiesModel GetInfo()
@@ -50,7 +52,10 @@ namespace WMI
                     result.Add(obj[classItemAdd].ToString().Trim());
                 }
             }
-            catch { }
+            catch
+            {
+                // ignored
+            }
 
             return result;
         }

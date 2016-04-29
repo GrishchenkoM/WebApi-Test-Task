@@ -8,6 +8,9 @@ using WMI;
 
 namespace Management
 {
+    /// <summary>
+    /// Start reading the WMI data and save it into the database
+    /// </summary>
     public class Manager
     {
         public Manager(DataManager dataManager, IGetInfo info)

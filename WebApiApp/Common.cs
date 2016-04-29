@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using DbLogic;
+﻿using DbLogic;
 using Management;
-using WMI;
 
 namespace WebApiApp
 {

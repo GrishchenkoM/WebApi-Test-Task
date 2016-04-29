@@ -2,6 +2,9 @@
 
 namespace Management
 {
+    /// <summary>
+    /// Start reading the WMI data save it into the database with a specified interval 
+    /// </summary>
     public class Timer
     {
         public Timer(Manager manager)

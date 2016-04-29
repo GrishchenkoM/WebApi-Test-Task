@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using DbLogic.Repositories.Implementations;
 using DbLogic.Repositories.Interfaces;
 using Domain;
@@ -19,13 +17,11 @@ namespace WebApiApp
             AddBinding();
         }
 
-        // извлекаем экземпляр контроллера для заданного контекста запроса и типа контроллера   
-        protected override IController GetControllerInstance(System.Web.Routing.RequestContext requestContext, Type controllerType)
+        protected override IController GetControllerInstance(RequestContext requestContext, Type controllerType)
         {
             return controllerType == null ? null : (IController)_ninjectKernel.Get(controllerType);
         }
 
-        // опрделим все привязки   
         private void AddBinding()
         {
             _ninjectKernel.Bind<IComputerRepository>().To<ComputerRepository>();
@@ -36,7 +32,6 @@ namespace WebApiApp
                           .ToSelf()
                           .WithConstructorArgument("connectionString",
                                                    ConfigurationManager.ConnectionStrings[0].ConnectionString);
-            
         }
 
         private readonly IKernel _ninjectKernel;
