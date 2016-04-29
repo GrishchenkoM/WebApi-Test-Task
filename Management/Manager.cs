@@ -15,8 +15,6 @@ namespace Management
             _dataManager = dataManager;
             _info = info;
 
-            Manage();
-
             var thread = new Thread(new Timer(this, _updateTime).SwitchOn);
             thread.Start();
         }
